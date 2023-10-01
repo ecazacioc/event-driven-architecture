@@ -1,0 +1,30 @@
+{
+  "name": "event-driven-architecture",
+  "version": "1.0.0",
+  "description": "Demo project for event driven architecture",
+  "bin": {
+    "infra": "bin/infra.ts"
+  },
+  "scripts": {
+    "build": "tsc -noEmit && rm -fr dist && mkdir dist && node .esbuild.js && rm -rf out",
+    "cdk": "cdk"
+  },
+  "author": "Elena Cazacioc",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.421.0",
+    "@aws-sdk/client-eventbridge": "3.421.0",
+    "@aws-sdk/util-dynamodb": "^3.421.0",
+    "@commercetools/platform-sdk": "6.0.0",
+    "aws-cdk-lib": "2.99.1",
+    "dotenv": "16.3.1",
+    "esbuild": "0.19.4",
+    "lodash": "4.17.21"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "8.10.119",
+    "@types/lodash": "^4.14.199",
+    "@types/node": "16.11.7",
+    "ts-node": "10.9.1",
+    "typescript": "5.2.2"
+  }
+}
