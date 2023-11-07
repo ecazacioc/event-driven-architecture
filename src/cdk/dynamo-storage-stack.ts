@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
-import { Construct } from 'constructs';
-import { AwsAccountStackProps } from '../lib/types';
+import type { Construct } from 'constructs';
+import type { AwsAccountStackProps } from '../lib/types';
 
 type DynamoStorageStackProps = AwsAccountStackProps;
 
@@ -21,7 +21,7 @@ export class DynamoStorageStack extends cdk.Stack {
 
     new cdk.CfnOutput(this, 'IntegrationStateTableName', {
       value: this.integrationStateTable.tableName,
-      description: 'Table to store integration\'s most recent data state',
+      description: "Table to store integration's most recent data state",
     });
   }
 }

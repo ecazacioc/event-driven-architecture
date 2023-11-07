@@ -1,12 +1,12 @@
 import { EventBridgeClient, PutEventsCommand } from '@aws-sdk/client-eventbridge';
-import { ChangeNotificationEvent, EventBridgeEvent, ResourceType } from './types';
+import type { ChangeNotificationEvent, EnrichedNotificationEvent, ResourceType } from './types';
 
 export function createEventBridgeEvent({
   notificationType: changeType,
   resource,
   resource: { id },
   version,
-}: ChangeNotificationEvent): EventBridgeEvent {
+}: ChangeNotificationEvent): EnrichedNotificationEvent {
   return {
     source: 'data-update-processor',
     target: 'all',
@@ -17,7 +17,7 @@ export function createEventBridgeEvent({
   };
 }
 
-export async function publishEvents(results: EventBridgeEvent[]): Promise<void> {
+export async function publishEvents(results: EnrichedNotificationEvent[]): Promise<void> {
   for (const batch of splitResultToBatches(results)) {
     console.log({ data: batch }, 'Events in batch');
 
@@ -34,13 +34,13 @@ export async function publishEvents(results: EventBridgeEvent[]): Promise<void> 
         })),
       }),
     );
-    console.log({ data }, 'Results of publishing of events');
+    console.log({ data: JSON.stringify(data) }, 'Results of publishing of events');
     console.log('After calling send to queue');
   }
 }
 
-function splitResultToBatches(results: EventBridgeEvent[]): Array<EventBridgeEvent[]> {
-  const chunkedArr: EventBridgeEvent[][] = [];
+function splitResultToBatches(results: EnrichedNotificationEvent[]): Array<EnrichedNotificationEvent[]> {
+  const chunkedArr: EnrichedNotificationEvent[][] = [];
   const batchSize = 10;
   if (results) {
     let index = 0;

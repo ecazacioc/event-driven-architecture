@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import * as events from 'aws-cdk-lib/aws-events';
-import { Construct } from 'constructs';
-import { AwsAccountStackProps } from '../lib/types';
+import type { Construct } from 'constructs';
+import type { AwsAccountStackProps } from '../lib/types';
 
 export type EventBridgeStackProps = AwsAccountStackProps;
 
