@@ -1,0 +1,9 @@
+{
+  "default": true,
+  "line_length": false,
+  "ol-prefix": false,
+  "ul-indent": false,
+  "no-blanks-blockquote": false,
+  "no-inline-html": false,
+  "ul-style": { "style": "dash" }
+}

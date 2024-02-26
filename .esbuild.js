@@ -28,6 +28,6 @@ esbuildLambda({
   entryPoints: [
     './src/lambdas/data-update-processor/index.ts',
     './src/lambdas/materialized-view-builder/index.ts',
-    // './src/lambdas/search-engine-indexer/index.ts',
+    './src/lambdas/results-processor/index.ts',
   ],
 });

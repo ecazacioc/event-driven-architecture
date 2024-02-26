@@ -1,4 +1,4 @@
-import type { DynamoDBStreamEvent } from 'aws-lambda';
+import type { Handler, DynamoDBStreamEvent } from 'aws-lambda';
 import type {
   EnrichedNotificationEvent,
   ProductMaterializedViewItem,
@@ -9,7 +9,7 @@ import { parseBatchItemFailures, parseDynamoDBRecord } from '../../lib';
 import { saveIntegrationState } from '../../lib/dynamodb';
 import { saveResults } from '../../lib/dynamodb/results-db';
 
-export const baseHandler = async (event: DynamoDBStreamEvent) => {
+export const handler: Handler = async (event: DynamoDBStreamEvent) => {
   console.log('Function input event: \n' + JSON.stringify(event, null, 2));
 
   const records: StreamNotificationEvent<ProductMaterializedViewItem>[] = event.Records.map(

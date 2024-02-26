@@ -2,28 +2,45 @@
   "name": "event-driven-architecture",
   "version": "1.0.0",
   "description": "Demo project for event driven architecture",
+  "author": "Elena Cazacioc",
+  "license": "MIT",
   "bin": {
     "infra": "bin/infra.ts"
   },
   "scripts": {
     "build": "tsc -noEmit && rm -fr dist && mkdir dist && node .esbuild.js && rm -rf out",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "eslint": "eslint '**/*.ts' 'package.json' --cache --cache-location './.rush/temp/.eslintcache'",
+    "lint": "yarn prettier --check && yarn eslint && yarn markdownlint",
+    "lint:fix": "yarn prettier --write && yarn eslint --fix && yarn markdownlint --fix",
+    "markdownlint": "markdownlint '**/*.md' --ignore node_modules",
+    "prettier": "prettier '**/*.ts' 'package.json' '**/*.md'"
   },
-  "author": "Elena Cazacioc",
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.421.0",
+    "@aws-sdk/client-dynamodb": "3.421.0",
     "@aws-sdk/client-eventbridge": "3.421.0",
-    "@aws-sdk/util-dynamodb": "^3.421.0",
+    "@aws-sdk/util-dynamodb": "3.421.0",
     "@commercetools/platform-sdk": "6.0.0",
+    "@commercetools/sdk-client-v2": "2.2.0",
     "aws-cdk-lib": "2.99.1",
+    "constructs": "10.2.6",
     "dotenv": "16.3.1",
     "esbuild": "0.19.4",
-    "lodash": "4.17.21"
+    "lodash": "4.17.21",
+    "node-fetch": "3.3.2"
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.119",
-    "@types/lodash": "^4.14.199",
+    "@types/lodash": "4.14.199",
     "@types/node": "16.11.7",
+    "@typescript-eslint/eslint-plugin": "6.9.1",
+    "@typescript-eslint/parser": "6.9.1",
+    "eslint": "8.52.0",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-json-files": "3.0.0",
+    "eslint-plugin-promise": "6.1.1",
+    "markdownlint-cli": "0.37.0",
+    "prettier": "3.0.3",
     "ts-node": "10.9.1",
     "typescript": "5.2.2"
   }

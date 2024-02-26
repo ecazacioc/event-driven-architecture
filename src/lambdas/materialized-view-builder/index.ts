@@ -33,6 +33,10 @@ export const handler: Handler = async (event: SQSEvent) => {
         .execute()
         .then((response) => response.body.results);
 
+      if (!product) {
+        throw new Error(`Product with id ${record.id} not found`);
+      }
+
       // Getting price for product
       const [price] = await apiRoot
         .standalonePrices()
@@ -52,11 +56,11 @@ export const handler: Handler = async (event: SQSEvent) => {
         createdAt: product.createdAt,
         name: product.masterData.current.name['en-GB'],
         description: product.masterData.current.description?.['en-GB'],
-        price: price.value.centAmount / 100,
+        price: price?.value.centAmount / 100,
       });
     } catch (error) {
       failedMessageIds.push(<string>record.messageId);
-      console.log({ error }, 'Error during service Algolia indexing');
+      console.log({ error }, 'Error during service Materialized View Builder execution.');
     }
   }
 
