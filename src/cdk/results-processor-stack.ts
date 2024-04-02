@@ -15,13 +15,12 @@ interface ResultsProcessorStackProps extends AwsAccountStackProps {
 }
 
 const lambdaTimeout = Duration.minutes(2);
-
 // Event source configuration
-const batchSize = 20; // The number of records to send to the function in each batch
+const batchSize = 1; // The number of records to send to the function in each batch
 const maxBatchingWindow = Duration.seconds(50); // Specify the maximum amount of time to gather records before invoking the function
 const reportBatchItemFailures = true; // lambda supports partial failures (e.g. in case only 5 out 50 messages failed returned back only failed back for processing)
 const bisectBatchOnError = true; // when both bisectBatchOnError and reportBatchItemFailures are turned on, the batch is bisected at the returned sequence number and Lambda retries only the remaining records.
-const retryAttempts = 3; // The maximum number of times that Lambda retries when the function returns an error.
+const retryAttempts = 1; // The maximum number of times that Lambda retries when the function returns an error.
 const maxRecordAge = Duration.seconds(60); // The maximum age of a record that Lambda sends to your function
 const parallelizationFactor = 1; // Concurrently process multiple batches from the same shard
 const startingPosition = lambda.StartingPosition.LATEST; // Process only new records, or all existing records

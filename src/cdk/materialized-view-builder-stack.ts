@@ -19,8 +19,9 @@ interface MaterializedViewBuilderStackProps extends AwsAccountStackProps {
 
 const lambdaTimeout = Duration.minutes(2);
 const maxBatchingWindow = Duration.seconds(5);
-const visibilityTimeout = Duration.seconds(725);
+const visibilityTimeout = Duration.seconds(125); // setting to 125 for testing purposes
 const reportBatchItemFailures = true; // lambda supports partial failures (e.g. in case only 5 out 50 messages failed returned back only failed back for processing)
+const maxReceiveCount = 1; // setting to 1 for testing purposes
 
 export class MaterializedViewBuilderStack extends cdk.Stack {
   viewBuilderLambda: lambda.Function;
@@ -40,7 +41,7 @@ export class MaterializedViewBuilderStack extends cdk.Stack {
         queue: new sqs.Queue(this, 'Materialized-View-Builder-SQS-DLQ', {
           queueName: `materialized-view-builder-${props.envName}-dlq`,
         }),
-        maxReceiveCount: 5,
+        maxReceiveCount,
       },
     });
 

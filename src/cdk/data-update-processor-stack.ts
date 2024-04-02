@@ -19,7 +19,8 @@ export interface UpdateProcessorStackProps extends AwsAccountStackProps {
 
 const lambdaTimeout = Duration.minutes(2);
 const maxBatchingWindow = Duration.seconds(5);
-const visibilityTimeout = Duration.seconds(725);
+const visibilityTimeout = Duration.seconds(125); // should be 6 times lambda timeout + batch window
+const maxReceiveCount = 1; // setting to 1 for testing purposes
 
 export class UpdateProcessorStack extends cdk.Stack {
   dataUpdatesLambda: lambda.Function;
@@ -66,7 +67,7 @@ export class UpdateProcessorStack extends cdk.Stack {
         queue: new sqs.Queue(this, 'Data-Updates-SQS-DLQ', {
           queueName: `data-updates-${props.envName}-dlq`,
         }),
-        maxReceiveCount: 5,
+        maxReceiveCount,
       },
     });
 

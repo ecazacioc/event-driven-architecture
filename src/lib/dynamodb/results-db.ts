@@ -10,7 +10,7 @@ const RESULTS_TABLE_NAME = process.env.RESULTS_TABLE_NAME || 'results-state-demo
 export async function saveResults(batch: ResultsDBItem[]): Promise<void> {
   const batchNoDuplicates = _.uniqBy(batch, 'targetIdentifier');
   const putRequests: WriteRequest[] = batchNoDuplicates.map((event) => ({
-    PutRequest: { Item: marshall(event) },
+    PutRequest: { Item: marshall(event, { removeUndefinedValues: true }) },
   }));
 
   await client.send(
